@@ -16,17 +16,28 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
-
+    
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+    ];
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
+    // casts mengubah tipe data dari kolom yang ada di database, misal kolom email_verified_at bertipe datetime, dipakai untuk tanggal dan waktu, sedangkan kolom password diubah menjadi hashed, dipakai untuk enkripsi password.
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function borrow()
+    {
+        return $this->hasMany(Borrow::class);
     }
 }
