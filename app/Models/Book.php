@@ -10,16 +10,22 @@ class Book extends Model
         'category_id',
         'title',
         'writer',
-        'release_date',
+        'release_date'
     ];
-    
-    public function category()
-    {
+
+    protected function casts(){
+        return [
+            'release_date' => 'date'
+        ];
+    }
+
+    public function category(){
         return $this->belongsTo(Category::class);
     }
-    
-    public function borrow()
-    {
+
+    public function borrow(){
         return $this->hasMany(Borrow::class);
     }
+    
+    
 }

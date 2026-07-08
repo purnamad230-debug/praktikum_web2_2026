@@ -10,25 +10,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+// #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
-    
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
     ];
+
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-    // casts mengubah tipe data dari kolom yang ada di database, misal kolom email_verified_at bertipe datetime, dipakai untuk tanggal dan waktu, sedangkan kolom password diubah menjadi hashed, dipakai untuk enkripsi password.
     protected function casts(): array
     {
         return [
@@ -36,8 +36,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function borrow()
-    {
+
+    public function borrow(){
         return $this->hasMany(Borrow::class);
     }
 }
